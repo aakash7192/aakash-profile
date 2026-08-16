@@ -12,17 +12,6 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
-<script>
-  /* Theme before first paint — no flash of the wrong palette. */
-  (function () {
-    var t = null;
-    try { t = localStorage.getItem('aam-theme'); } catch (e) {}
-    if (t !== 'dark' && t !== 'light') {
-      t = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-    }
-    document.documentElement.dataset.theme = t;
-  })();
-</script>
 <script type="module" src="/src/main.js"></script>
 </head>
 <body>
@@ -44,7 +33,6 @@
           <a class="icon-btn" href="https://wa.me/917208433292" target="_blank" rel="noopener" title="WhatsApp"><svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" aria-hidden="true"><path d="M17.6915026,13.4744748 C17.4788374,13.375 16.8384245,13.0616981 16.6381845,12.9845711 C16.4379445,12.9074442 16.3023833,12.8688807 16.1668221,13.0616981 C16.0312609,13.254515 15.6957886,13.8353758 15.5728957,13.9709371 C15.4500029,14.1064983 15.3271101,14.1450617 15.1344327,14.0294005 C14.9417552,13.9137392 14.4124333,13.758178 13.7720204,13.1773172 C13.2797486,12.7171196 12.9442763,12.1363588 12.8213835,11.9435414 C12.6984906,11.7507241 12.8213835,11.6350628 12.9442763,11.5194016 C13.0671691,11.4037403 13.2029303,11.2495033 13.3258232,11.1266104 C13.4487161,11.0037175 13.4872797,10.9251442 13.5644066,10.7909829 C13.6415335,10.6568216 13.6030699,10.4640042 13.5259431,10.364910 C13.4488162,10.2658159 13.0671691,9.625803 12.8669291,9.13903743 C12.6666891,8.65227185 12.4664491,8.73084514 12.3435562,8.72227822 C12.2206633,8.71371131 12.085302,8.71371131 11.9497408,8.71371131 C11.8141796,8.71371131 11.5815261,8.75227489 11.3812861,8.94508748 C11.1810461,9.13790007 10.5406332,9.45120297 10.5406332,10.0563267 C10.5406332,10.6614504 11.3970572,11.2495033 11.5199501,11.3850645 C11.6428429,11.5206257 13.1489441,14.1022618 15.5171225,15.1686104 C15.9988501,15.3779345 16.3772089,15.4886587 16.6666025,15.5592461 C17.1484914,15.6685272 17.5986278,15.6347899 17.9341001,15.5464721 C18.310872,15.4439858 19.0786327,15.0273161 19.2788727,14.5532231 C19.4791127,14.0791301 19.4791127,13.6701325 19.4020858,13.5594083 C19.325059,13.4486841 19.1895978,13.4102206 18.9999507,13.3716571 C18.8818038,13.3506969 18.7205056,13.3262023 18.5412989,13.2950034 C18.3620921,13.2638046 17.9656953,13.1725519 17.6915026,13.4744748 Z M12,0 C5.373,0 0,5.373 0,12 C0,18.627 5.373,24 12,24 C18.627,24 24,18.627 24,12 C24,5.373 18.627,0 12,0 Z"/></svg></a>
           <a class="navphone navlink" href="tel:+917208433292" title="Call">+91 72084 33292</a>
         </div>
-        <button id="theme-toggle" class="theme-btn" type="button" title="Toggle dark mode">dark mode</button>
         <span class="navstatus" style="display:inline-flex;align-items:center;gap:8px;color:var(--ink);white-space:nowrap"><span style="width:7px;height:7px;border-radius:50%;background:var(--accent);animation:dot 2s ease-in-out infinite"></span>open to work</span>
       </div>
     </div>

@@ -2,30 +2,10 @@ import './style.css';
 
 /* ──────────────────────────────────────────────────────────────────────────
    Vanilla port of the design's DCLogic component.
-   Four behaviours: theme toggle, typing terminal, stat counters, scroll reveal.
+   Three behaviours: typing terminal, stat counters, scroll reveal.
    ────────────────────────────────────────────────────────────────────────── */
 
-const root = document.documentElement;
 const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-/* ── Theme ──────────────────────────────────────────────────────────────── */
-
-const themeBtn = document.getElementById('theme-toggle');
-
-function applyTheme(theme) {
-  root.dataset.theme = theme;
-  try { localStorage.setItem('aam-theme', theme); } catch (e) {}
-  themeBtn.textContent = theme === 'dark' ? 'light mode' : 'dark mode';
-}
-
-let savedTheme = null;
-try { savedTheme = localStorage.getItem('aam-theme'); } catch (e) {}
-if (savedTheme !== 'dark' && savedTheme !== 'light') savedTheme = null;
-applyTheme(savedTheme || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'));
-
-themeBtn.addEventListener('click', () => {
-  applyTheme(root.dataset.theme === 'dark' ? 'light' : 'dark');
-});
 
 /* ── Terminal ───────────────────────────────────────────────────────────── */
 

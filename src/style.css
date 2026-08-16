@@ -1,9 +1,7 @@
 /* ── Design tokens ─────────────────────────────────────────────────────────
    Ported verbatim from the "Aakash Portfolio v2" design source. */
 
-html{scroll-behavior:smooth;color-scheme:light}
-html{--paper:#FBFBF9;--nav:rgba(251,251,249,.86);--paper2:#F3F3EF;--surface:#FFFFFF;--ink:#17191C;--ink2:#41464D;--muted:#6B7078;--line:#E5E5DF;--line2:#D9D9D2;--faint:#A9ADB3;--dim:#8B9096;--band:#17191C;--bandText:#ECEDEF;--bandBody:#B7BCC2;--bandMuted:#868C93;--bandLine:#2E343A;--accent:oklch(0.55 0.16 250);--accentOnBand:oklch(0.72 0.14 250);--iconFilter:none}
-html[data-theme="dark"]{color-scheme:dark;--paper:#0E1013;--nav:rgba(14,16,19,.86);--paper2:#131619;--surface:#171A1E;--ink:#ECEDEF;--ink2:#C3C6CB;--muted:#8B9096;--line:#252A2F;--line2:#2E343A;--faint:#4B5158;--dim:#6D737A;--band:#171A1E;--bandText:#ECEDEF;--bandBody:#B7BCC2;--bandMuted:#868C93;--bandLine:#2E343A;--accent:oklch(0.7 0.14 250);--accentOnBand:oklch(0.74 0.13 250);--iconFilter:invert(1) brightness(1.6)}
+html{scroll-behavior:smooth;color-scheme:dark;--paper:#0E1013;--nav:rgba(14,16,19,.86);--paper2:#131619;--surface:#171A1E;--ink:#ECEDEF;--ink2:#C3C6CB;--muted:#8B9096;--line:#252A2F;--line2:#2E343A;--faint:#4B5158;--dim:#6D737A;--band:#171A1E;--bandText:#ECEDEF;--bandBody:#B7BCC2;--bandMuted:#868C93;--bandLine:#2E343A;--accent:oklch(0.7 0.14 250);--accentOnBand:oklch(0.74 0.13 250);--iconFilter:invert(1) brightness(1.6)}
 body{margin:0;background:var(--paper)}
 a{color:var(--ink);text-decoration:none}
 a:hover{color:var(--accent)}
@@ -28,10 +26,6 @@ a:hover{color:var(--accent)}
 /* nav — phone number pill */
 .navlink{white-space:nowrap;height:32px;border:1px solid var(--line2);display:flex;align-items:center;padding:0 11px;color:var(--muted);font-size:12px}
 .navlink:hover{border-color:var(--accent);color:var(--ink)}
-
-/* nav — theme toggle */
-.theme-btn{height:32px;padding:0 12px;border:1px solid var(--line2);background:transparent;color:var(--muted);font-family:'DM Mono',monospace;font-size:12px;cursor:pointer;white-space:nowrap}
-.theme-btn:hover{border-color:var(--accent);color:var(--ink)}
 
 /* hero — call to action buttons */
 .btn-primary{position:relative;overflow:hidden;font-family:'DM Mono',monospace;font-size:13px;background:var(--ink);color:var(--paper);padding:15px 28px}
