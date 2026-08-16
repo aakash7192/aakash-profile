@@ -1,0 +1,52 @@
+/* ── Design tokens ─────────────────────────────────────────────────────────
+   Ported verbatim from the "Aakash Portfolio v2" design source. */
+
+html{scroll-behavior:smooth;color-scheme:light}
+html{--paper:#FBFBF9;--nav:rgba(251,251,249,.86);--paper2:#F3F3EF;--surface:#FFFFFF;--ink:#17191C;--ink2:#41464D;--muted:#6B7078;--line:#E5E5DF;--line2:#D9D9D2;--faint:#A9ADB3;--dim:#8B9096;--band:#17191C;--bandText:#ECEDEF;--bandBody:#B7BCC2;--bandMuted:#868C93;--bandLine:#2E343A;--accent:oklch(0.55 0.16 250);--accentOnBand:oklch(0.72 0.14 250);--iconFilter:none}
+html[data-theme="dark"]{color-scheme:dark;--paper:#0E1013;--nav:rgba(14,16,19,.86);--paper2:#131619;--surface:#171A1E;--ink:#ECEDEF;--ink2:#C3C6CB;--muted:#8B9096;--line:#252A2F;--line2:#2E343A;--faint:#4B5158;--dim:#6D737A;--band:#171A1E;--bandText:#ECEDEF;--bandBody:#B7BCC2;--bandMuted:#868C93;--bandLine:#2E343A;--accent:oklch(0.7 0.14 250);--accentOnBand:oklch(0.74 0.13 250);--iconFilter:invert(1) brightness(1.6)}
+body{margin:0;background:var(--paper)}
+a{color:var(--ink);text-decoration:none}
+a:hover{color:var(--accent)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+@keyframes blink{0%,49%{opacity:1}50%,100%{opacity:0}}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@keyframes sheen{0%{transform:translateX(-120%)}100%{transform:translateX(320%)}}
+@keyframes dot{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.5);opacity:.45}}
+@media (prefers-reduced-motion:reduce){*{animation:none !important;transition:none !important}}
+@media (max-width:1320px){.navphone{display:none !important}}
+@media (max-width:1120px){.navstatus{display:none !important}}
+@media (max-width:1000px){.two{grid-template-columns:1fr !important}.three{grid-template-columns:1fr !important}.role{grid-template-columns:1fr !important;gap:12px !important}}
+
+/* ── Interactive elements ──────────────────────────────────────────────────
+   Each rule below carries the element's base style plus the hover payload
+   that the design source expressed as a `style-hover` attribute. */
+
+/* nav — icon links (github / linkedin / whatsapp) */
+.icon-btn{width:32px;height:32px;border:1px solid var(--line2);display:flex;align-items:center;justify-content:center}
+.icon-btn:hover{border-color:var(--accent);background:var(--surface)}
+
+/* nav — phone number pill */
+.navlink{white-space:nowrap;height:32px;border:1px solid var(--line2);display:flex;align-items:center;padding:0 11px;color:var(--muted);font-size:12px}
+.navlink:hover{border-color:var(--accent);color:var(--ink)}
+
+/* nav — theme toggle */
+.theme-btn{height:32px;padding:0 12px;border:1px solid var(--line2);background:transparent;color:var(--muted);font-family:'DM Mono',monospace;font-size:12px;cursor:pointer;white-space:nowrap}
+.theme-btn:hover{border-color:var(--accent);color:var(--ink)}
+
+/* hero — call to action buttons */
+.btn-primary{position:relative;overflow:hidden;font-family:'DM Mono',monospace;font-size:13px;background:var(--ink);color:var(--paper);padding:15px 28px}
+.btn-primary:hover{background:var(--accent);color:var(--paper)}
+.btn-ghost{font-family:'DM Mono',monospace;font-size:13px;border:1px solid var(--ink);padding:15px 28px}
+.btn-ghost:hover{background:var(--ink);color:var(--paper)}
+
+/* contact — cards */
+.contact-card{border-top:1px solid var(--ink);padding:22px 0 0;display:flex;align-items:flex-start;gap:16px}
+.contact-card.alt{border-top-color:var(--line2)}
+.contact-card:hover{border-color:var(--accent)}
+
+/* projects band — inline link on the dark band */
+.band-link{color:var(--accentOnBand);text-decoration:underline;text-underline-offset:3px}
+.band-link:hover{color:var(--bandText)}
+
+/* terminal — the log line stack keeps the parent's 1px rhythm */
+#term-lines{display:flex;flex-direction:column;gap:1px}
