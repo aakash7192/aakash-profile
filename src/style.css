@@ -19,7 +19,7 @@ a:hover{color:var(--accent)}
    Each rule below carries the element's base style plus the hover payload
    that the design source expressed as a `style-hover` attribute. */
 
-/* nav — icon links (github / linkedin / whatsapp) */
+/* nav — icon links (github / whatsapp) */
 .icon-btn{width:32px;height:32px;border:1px solid var(--line2);display:flex;align-items:center;justify-content:center}
 .icon-btn:hover{border-color:var(--accent);background:var(--surface)}
 

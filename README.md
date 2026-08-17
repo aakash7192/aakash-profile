@@ -40,5 +40,4 @@ paths resolve under the project-pages subpath.
 
 - Email — aakash7192@gmail.com
 - GitHub — https://github.com/aakash7192
-- X — https://x.com/SkyLife50528410
 - WhatsApp — https://wa.me/917208433292

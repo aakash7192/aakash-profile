@@ -10,13 +10,13 @@ const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 /* ── Terminal ───────────────────────────────────────────────────────────── */
 
 const script = [
-  'checkpoint: 2,000 commits this year',
-  'models: fable-5, opus-5, sonnet',
-  'agentic workflows: 12x velocity',
-  'invoke: extraction · planning · verification',
-  'radiant world: invoicing 90% faster',
-  'docsmart: android team lead · healthcare · 10k+ users · no missed deadlines',
-  'shipped. no human in the loop. all day.',
+  'this site: designed, coded, deployed by agents — repo public',
+  'figma mcp · claude design → claude code · pixel-perfect ui',
+  'skypowers: my claude code plugin · published on github',
+  'radiant world: invoicing 90% faster · document-extraction pipeline',
+  'mahindra manulife: flutter rewrite from scratch · led team of 3',
+  'docsmart: healthcare android · 10k+ users · team lead · no missed deadlines',
+  'exit 0 · 15+ apps shipped over 12 years',
 ];
 
 const log = document.getElementById('term-log');
@@ -87,18 +87,20 @@ input.addEventListener('keydown', (e) => {
 
 /* ── Counters ───────────────────────────────────────────────────────────── */
 
+/* Final values live in the HTML so the strip reads correctly without JS;
+   the count-up only ever animates from 0 once JS is actually running. */
 const stats = {
   yrs: document.getElementById('stat-yrs'),
   mobile: document.getElementById('stat-mobile'),
   apps: document.getElementById('stat-apps'),
-  commits: document.getElementById('stat-commits'),
+  cut: document.getElementById('stat-cut'),
 };
 
 const targets = [
-  ['yrs', 10, ''],
+  ['yrs', 12, ''],
   ['mobile', 8, ''],
   ['apps', 15, '+'],
-  ['commits', 2000, '+'],
+  ['cut', 90, '%'],
 ];
 
 let counted = false;
