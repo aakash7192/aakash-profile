@@ -14,6 +14,7 @@ const script = [
   'figma mcp · claude design → claude code · pixel-perfect ui',
   'skypowers: my claude code plugin · published on github',
   'radiant world: invoicing 90% faster · document-extraction pipeline',
+  '/loop · /goal: pixel-perfect invoices on letterhead · exact to spec',
   'mahindra manulife: flutter rewrite from scratch · led team of 3',
   'docsmart: healthcare android · 10k+ users · team lead · no missed deadlines',
   'exit 0 · 15+ apps shipped over 12 years',
