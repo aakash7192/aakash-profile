@@ -1,0 +1,8 @@
+data: {"candidates":[{"content":{"role":"model","parts":[{"text":"Thinking about the user…","thought":true}]},"index":0}],"modelVersion":"gemini-2.5-flash","usageMetadata":{"promptTokenCount":50,"candidatesTokenCount":0}}
+
+data: {"candidates":[{"content":{"role":"model","parts":[{"text":"The mind wanders; "}]},"index":0}],"modelVersion":"gemini-2.5-flash","usageMetadata":{"promptTokenCount":50,"candidatesTokenCount":5}}
+
+data: {"candidates":[{"content":{"role":"model","parts":[{"text":"मन चंचल है। ✨"}]},"index":0}],"modelVersion":"gemini-2.5-flash","usageMetadata":{"promptTokenCount":50,"candidatesTokenCount":11}}
+
+data: {"candidates":[{"content":{"role":"model","parts":[{"text":"\n\n[[BG 6.26]]"}]},"index":0,"finishReason":"STOP"}],"modelVersion":"gemini-2.5-flash","usageMetadata":{"promptTokenCount":50,"candidatesTokenCount":20,"totalTokenCount":70}}
+
