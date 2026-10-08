@@ -37,12 +37,18 @@ test('buildRequest: url with alt=sse, key in header never in URL, roles, systemI
 });
 
 test('buildRequest: pro budget adds to maxOutputTokens; unknown family omits thinkingConfig with 1024 headroom', () => {
-  const pro = JSON.parse(G.buildRequest(req, { apiKey: 'k', baseUrl: 'https://g', caps: inferCaps('google', 'gemini-9-pro') }).body);
+  const pro = JSON.parse(G.buildRequest(req, { apiKey: 'k', baseUrl: 'https://g', caps: inferCaps('google', 'gemini-2.5-pro') }).body);
   assert.deepEqual(pro.generationConfig.thinkingConfig, { thinkingBudget: 512 });
   assert.equal(pro.generationConfig.maxOutputTokens, 912);
   const other = JSON.parse(G.buildRequest(req, { apiKey: 'k', baseUrl: 'https://g', caps: inferCaps('google', 'gemma-3') }).body);
   assert.equal('thinkingConfig' in other.generationConfig, false);
   assert.equal(other.generationConfig.maxOutputTokens, 1424);
+});
+
+test('buildRequest: Gemini 3+ sends thinkingLevel low, no temperature, 1024 headroom', () => {
+  const b = JSON.parse(G.buildRequest(req, { apiKey: 'k', baseUrl: 'https://g', caps: inferCaps('google', 'gemini-3.8-flash') }).body);
+  assert.deepEqual(b.generationConfig, { maxOutputTokens: 1424, thinkingConfig: { thinkingLevel: 'low' } });
+  assert.deepEqual(b.systemInstruction, { parts: [{ text: 'SYS' }] });
 });
 
 test('buildRequest: model id is URL-encoded and a models/ prefix is tolerated', () => {

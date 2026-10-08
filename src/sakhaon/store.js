@@ -93,8 +93,14 @@ export function createStore({ onQuota } = {}) {
     const d = defaultSettings();
     const saved = read(L, K.settings, null) || {};
     const s = { ...d, ...saved, model: { ...d.model, ...(saved.model || {}) }, customModel: { ...(saved.customModel || {}) } };
-    const ids = listProviders().map((p) => p.id);
+    const providers = listProviders();
+    const ids = providers.map((p) => p.id);
     if (!ids.includes(s.provider)) s.provider = d.provider;
+    // A saved pick that has left the model list (e.g. a retired model) falls back to the default;
+    // ids typed by hand live in customModel and are kept.
+    for (const p of providers) {
+      if (!p.models.some((m) => m.id === s.model[p.id])) s.model[p.id] = p.defaultModel;
+    }
     if (s.mode !== 'direct' && s.mode !== 'proxy') s.mode = d.mode;
     if (!LENGTHS[s.length]) s.length = 'balanced';
     if (!LANGUAGES.includes(s.language)) s.language = 'auto';

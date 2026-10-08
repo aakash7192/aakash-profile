@@ -207,10 +207,10 @@ export const APP = Object.freeze({
 
 ### 3.3 `src/sakhaon/core/persona.js`
 ```ts
-export const PROMPT_VERSION = 'sakha-v1';
-export const LENGTHS = { brief: { words: '40–90', maxTokens: 400 },
-                         balanced: { words: '60–150', maxTokens: 800 },
-                         deep: { words: '150–300', maxTokens: 1400 } };
+export const PROMPT_VERSION = 'sakha-v2';  // the owner's "Gita Counselor" prompt, verbatim, plus an App notes section
+export const LENGTHS = { brief: { words: '120–220', maxTokens: 700 },
+                         balanced: { words: '250–450', maxTokens: 1200 },
+                         deep: { words: '450–700', maxTokens: 2000 } };
 export const LANGUAGES = ['auto','en','hi','hinglish'];
 export function buildSystemPrompt(opts?: { length?: 'brief'|'balanced'|'deep', language?: 'auto'|'en'|'hi'|'hinglish' }): string;
 export const SAKHA_SYSTEM_PROMPT: string;   // = buildSystemPrompt() (balanced, auto)
@@ -275,24 +275,25 @@ anthropic: { label:'Anthropic', baseUrl:'https://api.anthropic.com', browserOk:t
   keyUrl:'https://console.anthropic.com/settings/keys',
   models:[ {id:'claude-sonnet-5-5', label:'Claude Sonnet 5.5', note:'balanced', default:true},
            {id:'claude-opus-5-5',   label:'Claude Opus 5.5',   note:'deepest'},
-           {id:'claude-haiku-5-5',  label:'Claude Haiku 5.5',  note:'fastest'} ] },
+           {id:'claude-haiku-5-5',  label:'Claude Haiku 5.5',  note:'fastest'},
+           {id:'claude-fable-5-1',  label:'Claude Fable 5.1',  note:'most capable · pricier'} ] },
 openai: { label:'OpenAI', baseUrl:'https://api.openai.com/v1', browserOk:true, keyHint:'sk-…',
   keyUrl:'https://platform.openai.com/api-keys',
-  models:[ {id:'gpt-5-mini', label:'GPT-5 mini', note:'balanced', default:true},
-           {id:'gpt-5', label:'GPT-5', note:'deepest'},
-           {id:'gpt-4.1', label:'GPT-4.1', note:'classic'} ] },
+  models:[ {id:'gpt-6.1-sol', label:'GPT-6.1 Sol', note:'balanced', default:true},
+           {id:'gpt-6-astra', label:'GPT-6 Astra', note:'deepest'},
+           {id:'gpt-6-luna', label:'GPT-6 Luna', note:'fastest'} ] },
 google: { label:'Google Gemini', baseUrl:'https://generativelanguage.googleapis.com', browserOk:true, keyHint:'AIza…',
   keyUrl:'https://aistudio.google.com/apikey',
-  models:[ {id:'gemini-2.5-flash', label:'Gemini 2.5 Flash', note:'balanced', default:true},
-           {id:'gemini-2.5-pro', label:'Gemini 2.5 Pro', note:'deepest'},
-           {id:'gemini-2.5-flash-lite', label:'Gemini 2.5 Flash-Lite', note:'fastest'} ] },
+  models:[ {id:'gemini-3.8-flash', label:'Gemini 3.8 Flash', note:'balanced', default:true},
+           {id:'gemini-3.1-pro-preview', label:'Gemini 3.1 Pro (preview)', note:'deepest'},
+           {id:'gemini-3.5-flash-lite', label:'Gemini 3.5 Flash-Lite', note:'fastest'} ] },
 ```
-The OpenAI and Google ids are sensible defaults that the user can edit through the custom-model field. Leave a `// verify against provider model list` comment next to them. A future provider (OpenRouter, Groq, Ollama) is one row that reuses `openaiAdapter` with a different `baseUrl`; include an example row as a **comment** only.
+The OpenAI and Google ids are sensible defaults that the user can edit through the custom-model field. Lists were checked against provider docs in 2026-10. A saved pick that leaves the list falls back to the provider default on load; hand-typed ids live in `customModel` and are kept. A future provider (OpenRouter, Groq, Ollama) is one row that reuses `openaiAdapter` with a different `baseUrl`; include an example row as a **comment** only.
 
 `inferCaps(providerId, id)`. Base caps are `{temperature:true, maxTemperature:1, defaultMaxTokens:800}`.
 - **anthropic:** `maxTemperature` 1.
-- **openai:** `maxTemperature` 2. Only ids matching `/(^|[:/])(gpt-4|gpt-3\.5|chatgpt-4o)/i` keep `temperature:true`; every other id (o-series, gpt-5+, codex, unknown) gets `temperature:false`.
-- **google:** `maxTemperature` 2. Ids matching `/pro/i` get `thinkingBudget` 512. Ids matching `/flash/i` get `thinkingBudget` 0. Any other id gets `thinkingBudget` undefined, and the adapter then omits `thinkingConfig` and adds 1024 headroom.
+- **openai:** `maxTemperature` 2. Only ids matching `/(^|[:/])(gpt-4|gpt-3\.5|chatgpt-4o)/i` keep `temperature:true`; every other id (o-series, gpt-5+, codex, unknown) gets `temperature:false` plus `developerRole:true`, `effort:'low'` and `thinkingAllowance:1024`.
+- **google:** `maxTemperature` 2. Gemini 3+ ids (`/^(models\/)?gemini-([3-9]|\d{2,})/i`) get `temperature:false` and `thinkingLevel:'low'`. Otherwise, ids matching `/pro/i` get `thinkingBudget` 512. Ids matching `/flash/i` get `thinkingBudget` 0. Any other id gets `thinkingBudget` undefined, and the adapter then omits `thinkingConfig` and adds 1024 headroom.
 
 ### 4.2 Adapters (pure functions, no I/O)
 Each adapter is `{ id, buildRequest(req, {apiKey, baseUrl, direct, caps}) → {url, headers, body:string}, createState(), parseEvent(sseEvent, state) → ChatEvent[], finish(state) → ChatEvent[], parseErrorBody(status, text) → {code, message} }`.
@@ -317,7 +318,8 @@ Each adapter is `{ id, buildRequest(req, {apiKey, baseUrl, direct, caps}) → {u
 **openai** (Chat Completions)
 - **Request.** `POST {base}/chat/completions`.
   - Headers: `authorization: Bearer …`.
-  - Body: `{model, messages:[{role:'system',content:system}?, ...], stream:true, stream_options:{include_usage:true}, max_completion_tokens (or max_tokens if caps.legacyMaxTokens), temperature?}`.
+  - Body: `{model, messages:[{role:'system'|'developer',content:system}?, ...], stream:true, stream_options:{include_usage:true}, max_completion_tokens (or max_tokens if caps.legacyMaxTokens), temperature?, reasoning_effort?}`.
+  - Reasoning models (`caps.developerRole`) get the system prompt as a `developer` message, `reasoning_effort: caps.effort`, and `maxTokens + thinkingAllowance` as the token limit (reasoning tokens count against it).
 - **Stream.**
   - `[DONE]` sets terminal.
   - `{error}` throws.
@@ -337,8 +339,8 @@ Each adapter is `{ id, buildRequest(req, {apiKey, baseUrl, direct, caps}) → {u
 **gemini**
 - **Request.** `POST {base}/v1beta/models/{encodeURIComponent(model)}:streamGenerateContent?alt=sse`.
   - Headers: `x-goog-api-key`. **Never** put the key in a `?key=` query parameter.
-  - Body: `{contents:[{role:'user'|'model', parts:[{text}]}], systemInstruction?:{parts:[{text}]}, generationConfig:{temperature?, maxOutputTokens, thinkingConfig?:{thinkingBudget}}}`.
-  - `maxOutputTokens` is `maxTokens + (thinkingBudget ?? 1024)`.
+  - Body: `{contents:[{role:'user'|'model', parts:[{text}]}], systemInstruction?:{parts:[{text}]}, generationConfig:{temperature?, maxOutputTokens, thinkingConfig?:{thinkingLevel}|{thinkingBudget}}}`.
+  - With `caps.thinkingLevel` (Gemini 3+), send `thinkingConfig:{thinkingLevel}` and `maxOutputTokens = maxTokens + 1024`. Otherwise `maxOutputTokens` is `maxTokens + (thinkingBudget ?? 1024)`.
 - **Stream.** Each data chunk is JSON.
   - `promptFeedback.blockReason` throws `safety`.
   - Parts with `!thought` and non-empty text become text.

@@ -31,6 +31,14 @@ test('buildRequest: url, bearer header, system first, stream_options, max_comple
   });
 });
 
+test('buildRequest: reasoning models get a developer message, reasoning_effort low and reasoning headroom', () => {
+  const b = JSON.parse(O.buildRequest(req, { apiKey: 'k', baseUrl: 'https://x', caps: inferCaps('openai', 'gpt-6.1-sol') }).body);
+  assert.deepEqual(b.messages[0], { role: 'developer', content: 'SYS' });
+  assert.equal(b.reasoning_effort, 'low');
+  assert.equal(b.max_completion_tokens, 1524);
+  assert.equal('temperature' in b, false);
+});
+
 test('buildRequest: temperature omitted for gpt-5*/o* caps; legacyMaxTokens uses max_tokens', () => {
   const b = JSON.parse(O.buildRequest(req, { apiKey: 'k', baseUrl: 'https://x', caps: inferCaps('openai', 'gpt-5-mini') }).body);
   assert.equal('temperature' in b, false);

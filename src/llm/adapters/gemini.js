@@ -57,12 +57,13 @@ export const geminiAdapter = {
     const max = req.maxTokens ?? caps.defaultMaxTokens ?? 800;
     const budget = caps.thinkingBudget;
     /** @type {any} */
-    let total = max + (typeof budget === 'number' ? budget : 1024);
+    let total = max + (typeof budget === 'number' && !caps.thinkingLevel ? budget : 1024);
     // Optional hard ceiling (the proxy's MAX_TOKENS_CAP) applies to the whole provider budget, thinking included.
     if (Number.isFinite(maxOutputTokens) && maxOutputTokens > 0) total = Math.min(total, Math.floor(maxOutputTokens));
     const generationConfig = { maxOutputTokens: total };
     if (typeof req.temperature === 'number' && caps.temperature !== false) generationConfig.temperature = req.temperature;
-    if (typeof budget === 'number') generationConfig.thinkingConfig = { thinkingBudget: budget };
+    if (caps.thinkingLevel) generationConfig.thinkingConfig = { thinkingLevel: caps.thinkingLevel };
+    else if (typeof budget === 'number') generationConfig.thinkingConfig = { thinkingBudget: budget };
     /** @type {any} */
     const body = { contents };
     if (req.system) body.systemInstruction = { parts: [{ text: req.system }] };

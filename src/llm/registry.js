@@ -28,6 +28,7 @@ export const PROVIDERS = freeze({
       freeze({ id: 'claude-sonnet-5-5', label: 'Claude Sonnet 5.5', note: 'balanced', default: true }),
       freeze({ id: 'claude-opus-5-5', label: 'Claude Opus 5.5', note: 'deepest' }),
       freeze({ id: 'claude-haiku-5-5', label: 'Claude Haiku 5.5', note: 'fastest' }),
+      freeze({ id: 'claude-fable-5-1', label: 'Claude Fable 5.1', note: 'most capable · pricier' }),
     ]),
   }),
   openai: freeze({
@@ -40,11 +41,11 @@ export const PROVIDERS = freeze({
     docsUrl: 'https://platform.openai.com/docs/api-reference/chat',
     keyEnv: 'OPENAI_API_KEY',
     adapter: openaiAdapter,
-    // verify against provider model list
+    // Current GPT-6 family (checked 2026-10); older ids still work via the custom model field.
     models: freeze([
-      freeze({ id: 'gpt-5-mini', label: 'GPT-5 mini', note: 'balanced', default: true }),
-      freeze({ id: 'gpt-5', label: 'GPT-5', note: 'deepest' }),
-      freeze({ id: 'gpt-4.1', label: 'GPT-4.1', note: 'classic' }),
+      freeze({ id: 'gpt-6.1-sol', label: 'GPT-6.1 Sol', note: 'balanced', default: true }),
+      freeze({ id: 'gpt-6-astra', label: 'GPT-6 Astra', note: 'deepest' }),
+      freeze({ id: 'gpt-6-luna', label: 'GPT-6 Luna', note: 'fastest' }),
     ]),
   }),
   google: freeze({
@@ -57,11 +58,11 @@ export const PROVIDERS = freeze({
     docsUrl: 'https://ai.google.dev/api/generate-content',
     keyEnv: 'GEMINI_API_KEY',
     adapter: geminiAdapter,
-    // verify against provider model list
+    // Current Gemini lineup (checked 2026-10; the 2.5 family retires 2026-10-20). 3.1 Pro is still a preview.
     models: freeze([
-      freeze({ id: 'gemini-2.5-flash', label: 'Gemini 2.5 Flash', note: 'balanced', default: true }),
-      freeze({ id: 'gemini-2.5-pro', label: 'Gemini 2.5 Pro', note: 'deepest' }),
-      freeze({ id: 'gemini-2.5-flash-lite', label: 'Gemini 2.5 Flash-Lite', note: 'fastest' }),
+      freeze({ id: 'gemini-3.8-flash', label: 'Gemini 3.8 Flash', note: 'balanced', default: true }),
+      freeze({ id: 'gemini-3.1-pro-preview', label: 'Gemini 3.1 Pro (preview)', note: 'deepest' }),
+      freeze({ id: 'gemini-3.5-flash-lite', label: 'Gemini 3.5 Flash-Lite', note: 'fastest' }),
     ]),
   }),
   // Example of a future OpenAI-compatible provider (one row, reuses openaiAdapter):
@@ -136,9 +137,21 @@ export function inferCaps(providerId, id) {
     // Allowlist the classic families that do accept it, so new, fine-tuned (`ft:…`) or prefixed
     // (`openai/…`) reasoning ids never get a 400.
     caps.temperature = /(^|[:/])(gpt-4|gpt-3\.5|chatgpt-4o)/i.test(mid);
+    if (!caps.temperature) {
+      // Reasoning models take instructions as a `developer` message, spend max_completion_tokens on
+      // reasoning too, and accept reasoning_effort "low" on every current id (Astra has no "none").
+      caps.developerRole = true;
+      caps.effort = 'low';
+      caps.thinkingAllowance = 1024;
+    }
   } else if (providerId === 'google') {
     caps.maxTemperature = 2;
-    if (/pro/i.test(mid)) caps.thinkingBudget = 512;
+    if (/^(models\/)?gemini-([3-9]|\d{2,})/i.test(mid)) {
+      // Gemini 3+: thinking is set by level (MINIMAL is rejected on 3.8 Flash / 3.1 Pro) and sampling
+      // params are ignored; Google advises leaving temperature at its default.
+      caps.temperature = false;
+      caps.thinkingLevel = 'low';
+    } else if (/pro/i.test(mid)) caps.thinkingBudget = 512;
     else if (/flash/i.test(mid)) caps.thinkingBudget = 0;
   }
   return caps;

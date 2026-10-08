@@ -5,8 +5,8 @@ import { VERSE_REFS } from '../../src/sakhaon/core/verses.js';
 import { APP } from '../../src/sakhaon/core/app.js';
 
 test('constants', () => {
-  assert.equal(PROMPT_VERSION, 'sakha-v1');
-  assert.deepEqual(LENGTHS.balanced, { words: '60–150', maxTokens: 800 });
+  assert.equal(PROMPT_VERSION, 'sakha-v2');
+  assert.deepEqual(LENGTHS.balanced, { words: '250–450', maxTokens: 1200 });
   assert.deepEqual([...LANGUAGES], ['auto', 'en', 'hi', 'hinglish']);
   assert.equal(SAKHA_SYSTEM_PROMPT, buildSystemPrompt({ length: 'balanced', language: 'auto' }));
 });
@@ -26,9 +26,10 @@ test('contains every library ref, the helplines and the persona name', () => {
   const p = SAKHA_SYSTEM_PROMPT;
   assert.ok(p.includes(VERSE_REFS.join(', ')));
   for (const s of ['14416', '1-800-891-4416', '112', '181', '1098', '988', '116 123', 'findahelpline.com']) assert.ok(p.includes(s), s);
-  assert.ok(p.startsWith(`You are ${APP.persona} (सखा`));
+  assert.ok(p.startsWith(`# System Prompt — Gita Counselor ("${APP.persona}")`));
   assert.ok(p.includes('[[BG chapter.verse]]'));
-  assert.ok(p.includes('never output HTML'));
+  assert.ok(p.includes('No headings, tables, code blocks or HTML.'));
+  for (const s of ['### 2. Ask at least three questions, one at a time', '## Hard rules', 'Keep the person, not the scripture, at the centre.']) assert.ok(p.includes(s), s);
 });
 
 test('mentions no provider or model name', () => {
@@ -41,8 +42,8 @@ test('mentions no provider or model name', () => {
 });
 
 test('language preference line only when not auto', () => {
-  assert.equal(/The user prefers replies in/.test(buildSystemPrompt()), false);
-  assert.ok(buildSystemPrompt({ language: 'en' }).includes('The user prefers replies in English unless they write otherwise.'));
+  assert.equal(/The person prefers replies in/.test(buildSystemPrompt()), false);
+  assert.ok(buildSystemPrompt({ language: 'en' }).includes('The person prefers replies in English unless they write otherwise.'));
   assert.ok(buildSystemPrompt({ language: 'hi' }).includes('simple Hindi in Devanagari unless'));
   assert.ok(buildSystemPrompt({ language: 'hinglish' }).includes('Hinglish in Roman script unless'));
 });
