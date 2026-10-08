@@ -1,0 +1,2 @@
+data: {"promptFeedback":{"blockReason":"SAFETY","safetyRatings":[]},"usageMetadata":{"promptTokenCount":8},"modelVersion":"gemini-2.5-flash"}
+
