@@ -132,7 +132,10 @@ export function inferCaps(providerId, id) {
     }
   } else if (providerId === 'openai') {
     caps.maxTemperature = 2;
-    if (/^(o\d|gpt-5)/i.test(mid)) caps.temperature = false;
+    // Reasoning models (o-series, gpt-5 and later, codex) reject any temperature but the default 1.
+    // Allowlist the classic families that do accept it, so new, fine-tuned (`ft:…`) or prefixed
+    // (`openai/…`) reasoning ids never get a 400.
+    caps.temperature = /(^|[:/])(gpt-4|gpt-3\.5|chatgpt-4o)/i.test(mid);
   } else if (providerId === 'google') {
     caps.maxTemperature = 2;
     if (/pro/i.test(mid)) caps.thinkingBudget = 512;

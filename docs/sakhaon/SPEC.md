@@ -291,7 +291,7 @@ The OpenAI and Google ids are sensible defaults that the user can edit through t
 
 `inferCaps(providerId, id)`. Base caps are `{temperature:true, maxTemperature:1, defaultMaxTokens:800}`.
 - **anthropic:** `maxTemperature` 1.
-- **openai:** `maxTemperature` 2. Ids matching `/^(o\d|gpt-5)/i` get `temperature:false`.
+- **openai:** `maxTemperature` 2. Only ids matching `/(^|[:/])(gpt-4|gpt-3\.5|chatgpt-4o)/i` keep `temperature:true`; every other id (o-series, gpt-5+, codex, unknown) gets `temperature:false`.
 - **google:** `maxTemperature` 2. Ids matching `/pro/i` get `thinkingBudget` 512. Ids matching `/flash/i` get `thinkingBudget` 0. Any other id gets `thinkingBudget` undefined, and the adapter then omits `thinkingConfig` and adds 1024 headroom.
 
 ### 4.2 Adapters (pure functions, no I/O)
