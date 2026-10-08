@@ -14,8 +14,8 @@ test('every provider has exactly one default model, matching defaultModel()', ()
     assert.equal(getProvider(p.id).defaultModel, defs[0].id);
   }
   assert.equal(defaultModel('anthropic'), 'claude-sonnet-5-5');
-  assert.equal(defaultModel('openai'), 'gpt-5-mini');
-  assert.equal(defaultModel('google'), 'gemini-2.5-flash');
+  assert.equal(defaultModel('openai'), 'gpt-6.1-sol');
+  assert.equal(defaultModel('google'), 'gemini-3.8-flash');
 });
 
 test('listProviders() objects carry no adapter or secrets and are copies', () => {
@@ -49,10 +49,27 @@ test('inferCaps heuristics', () => {
   assert.equal(inferCaps('openai', 'gpt-5-mini').temperature, false);
   assert.equal(inferCaps('openai', 'o4-mini').temperature, false);
   assert.equal(inferCaps('openai', 'gpt-4.1').temperature, true);
+  for (const id of ['gpt-5.1', 'gpt-6', 'o3', 'codex-mini-latest', 'ft:gpt-5-mini:org::abc', 'openai/o4-mini', 'GPT-5']) {
+    assert.equal(inferCaps('openai', id).temperature, false, id);
+  }
+  for (const id of ['gpt-4o', 'gpt-4o-mini', 'gpt-3.5-turbo', 'chatgpt-4o-latest', 'ft:gpt-4.1-mini:org::x']) {
+    assert.equal(inferCaps('openai', id).temperature, true, id);
+  }
   assert.equal(inferCaps('openai', 'gpt-4.1').maxTemperature, 2);
   assert.equal(inferCaps('google', 'gemini-2.5-pro').thinkingBudget, 512);
   assert.equal(inferCaps('google', 'gemini-2.5-flash-lite').thinkingBudget, 0);
   assert.equal(inferCaps('google', 'gemma-3-27b').thinkingBudget, undefined);
+  for (const id of ['gemini-3.8-flash', 'gemini-3.1-pro-preview', 'gemini-3.5-flash-lite', 'models/gemini-4-pro']) {
+    const c = inferCaps('google', id);
+    assert.equal(c.thinkingLevel, 'low', id);
+    assert.equal(c.thinkingBudget, undefined, id);
+    assert.equal(c.temperature, false, id);
+  }
+  for (const id of ['gpt-6.1-sol', 'gpt-6-astra', 'gpt-6-luna']) {
+    const c = inferCaps('openai', id);
+    assert.deepEqual([c.developerRole, c.effort, c.thinkingAllowance], [true, 'low', 1024], id);
+  }
+  assert.equal(inferCaps('openai', 'gpt-4.1').developerRole, undefined);
 });
 
 test('inferCaps: current-generation Claude ids disable temperature and set effort/thinking allowance', () => {

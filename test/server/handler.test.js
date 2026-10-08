@@ -212,11 +212,11 @@ test('gemini upstream uses header key, never URL', async () => {
 });
 
 test('GET /v1/providers lists only configured providers', async () => {
-  await withServer({ OPENAI_API_KEY: 'sk-x', ALLOWED_MODELS: 'gpt-4.1,openai:my-ft,claude-sonnet-5-5' }, stubFetch(), async (port) => {
+  await withServer({ OPENAI_API_KEY: 'sk-x', ALLOWED_MODELS: 'gpt-6-luna,openai:my-ft,claude-sonnet-5-5' }, stubFetch(), async (port) => {
     const r = await request(port, { path: '/v1/providers', headers: { origin: ORIGIN } });
     assert.equal(r.status, 200);
     assert.deepEqual(r.json.map((p) => p.id), ['anthropic', 'openai']);
-    assert.deepEqual(r.json.find((p) => p.id === 'openai').models, ['gpt-4.1', 'my-ft']);
+    assert.deepEqual(r.json.find((p) => p.id === 'openai').models, ['gpt-6-luna', 'my-ft']);
     assert.deepEqual(r.json.find((p) => p.id === 'anthropic').models, ['claude-sonnet-5-5']);
   });
 });

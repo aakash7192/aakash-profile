@@ -37,7 +37,7 @@ export const openaiAdapter = {
     const headers = { 'content-type': 'application/json' };
     if (apiKey) headers.authorization = `Bearer ${apiKey}`;
     const messages = [];
-    if (req.system) messages.push({ role: 'system', content: req.system });
+    if (req.system) messages.push({ role: caps.developerRole ? 'developer' : 'system', content: req.system });
     for (const m of req.messages) messages.push({ role: m.role, content: m.content });
     /** @type {any} */
     const body = {
@@ -46,11 +46,12 @@ export const openaiAdapter = {
       stream: true,
       stream_options: { include_usage: true },
     };
-    let max = req.maxTokens ?? caps.defaultMaxTokens ?? 800;
+    let max = (req.maxTokens ?? caps.defaultMaxTokens ?? 800) + (caps.thinkingAllowance || 0);
     if (Number.isFinite(maxOutputTokens) && maxOutputTokens > 0) max = Math.min(max, Math.floor(maxOutputTokens));
     if (caps.legacyMaxTokens) body.max_tokens = max;
     else body.max_completion_tokens = max;
     if (typeof req.temperature === 'number' && caps.temperature !== false) body.temperature = req.temperature;
+    if (caps.effort) body.reasoning_effort = caps.effort;
     return { url: `${String(baseUrl).replace(/\/+$/, '')}/chat/completions`, headers, body: JSON.stringify(body) };
   },
 

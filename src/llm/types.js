@@ -25,8 +25,10 @@
  * @property {number} maxTemperature
  * @property {number} defaultMaxTokens
  * @property {number} [thinkingBudget]          Gemini: thinking token budget (added on top of maxTokens)
- * @property {'low'|'medium'|'high'} [effort]    Anthropic: output_config.effort for adaptive-thinking models
- * @property {number} [thinkingAllowance]        Anthropic: extra max_tokens reserved for adaptive thinking
+ * @property {'low'|'medium'|'high'} [thinkingLevel] Gemini 3+: thinkingConfig.thinkingLevel (replaces thinkingBudget)
+ * @property {'low'|'medium'|'high'} [effort]    Anthropic: output_config.effort; OpenAI: reasoning_effort
+ * @property {number} [thinkingAllowance]        Anthropic/OpenAI: extra max tokens reserved for reasoning
+ * @property {boolean} [developerRole]           OpenAI reasoning models: send the system prompt as a `developer` message
  * @property {boolean} [legacyMaxTokens]
  */
 
