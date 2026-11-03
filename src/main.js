@@ -1,4 +1,5 @@
 import './style.css';
+import './fx.js';
 
 /* ──────────────────────────────────────────────────────────────────────────
    Vanilla port of the design's DCLogic component.
@@ -139,6 +140,7 @@ function observe() {
       setTimeout(() => {
         el.style.opacity = '1';
         el.style.transform = 'none';
+        setTimeout(() => { el.dataset.shown = '1'; }, 700);
       }, k * 70);
       obs.unobserve(el);
       if (el.textContent.includes('years in production')) count();
