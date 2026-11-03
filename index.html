@@ -29,42 +29,54 @@
 <div style="min-height:100vh;overflow-x:clip;background:var(--paper);color:var(--ink);font-family:'DM Sans',system-ui,sans-serif;font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased">
 
   <nav style="position:sticky;top:0;z-index:30;background:var(--nav);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)">
-    <div style="max-width:1240px;margin:0 auto;padding:14px 40px;display:flex;align-items:center;justify-content:space-between;gap:20px">
+    <div class="wrap navbar" style="max-width:1240px;margin:0 auto;padding:14px 40px;display:flex;align-items:center;justify-content:space-between;gap:20px">
       <a href="#top" style="font-family:'DM Mono',monospace;font-size:15px;letter-spacing:0.01em">Aakash</a>
-      <div style="display:flex;align-items:center;gap:22px;font-family:'DM Mono',monospace;font-size:12.5px;color:var(--muted)">
-        <a href="#work" style="color:var(--muted)">work</a>
-        <a href="#projects" style="color:var(--muted)">projects</a>
-        <a href="#skills" style="color:var(--muted)">skills</a>
-        <a href="#contact" style="color:var(--muted)">contact</a>
-        <a href="./sakhaon/" class="navlink sakha-nav">✦ sakhaon</a>
-        <span style="width:1px;height:18px;background:var(--line2)"></span>
+      <div class="navright" style="display:flex;align-items:center;gap:22px;font-family:'DM Mono',monospace;font-size:12.5px;color:var(--muted)">
+        <a class="navtext" href="#work" style="color:var(--muted)">work</a>
+        <a class="navtext" href="#projects" style="color:var(--muted)">projects</a>
+        <a class="navtext" href="#skills" style="color:var(--muted)">skills</a>
+        <a class="navtext" href="#contact" style="color:var(--muted)">contact</a>
+        <a href="./sakhaon/" class="navlink sakha-nav navtext">✦ sakhaon</a>
+        <span class="navtext" style="width:1px;height:18px;background:var(--line2)"></span>
         <div style="display:flex;align-items:center;gap:6px">
           <a class="icon-btn" href="https://github.com/aakash7192" target="_blank" rel="noopener" title="GitHub"><svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.003 12.003 0 0024 12c0-6.63-5.37-12-12-12z"/></svg></a>
-          <a class="icon-btn" href="https://wa.me/917208433292" target="_blank" rel="noopener" title="WhatsApp"><svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" aria-hidden="true"><path d="M17.6915026,13.4744748 C17.4788374,13.375 16.8384245,13.0616981 16.6381845,12.9845711 C16.4379445,12.9074442 16.3023833,12.8688807 16.1668221,13.0616981 C16.0312609,13.254515 15.6957886,13.8353758 15.5728957,13.9709371 C15.4500029,14.1064983 15.3271101,14.1450617 15.1344327,14.0294005 C14.9417552,13.9137392 14.4124333,13.758178 13.7720204,13.1773172 C13.2797486,12.7171196 12.9442763,12.1363588 12.8213835,11.9435414 C12.6984906,11.7507241 12.8213835,11.6350628 12.9442763,11.5194016 C13.0671691,11.4037403 13.2029303,11.2495033 13.3258232,11.1266104 C13.4487161,11.0037175 13.4872797,10.9251442 13.5644066,10.7909829 C13.6415335,10.6568216 13.6030699,10.4640042 13.5259431,10.364910 C13.4488162,10.2658159 13.0671691,9.625803 12.8669291,9.13903743 C12.6666891,8.65227185 12.4664491,8.73084514 12.3435562,8.72227822 C12.2206633,8.71371131 12.085302,8.71371131 11.9497408,8.71371131 C11.8141796,8.71371131 11.5815261,8.75227489 11.3812861,8.94508748 C11.1810461,9.13790007 10.5406332,9.45120297 10.5406332,10.0563267 C10.5406332,10.6614504 11.3970572,11.2495033 11.5199501,11.3850645 C11.6428429,11.5206257 13.1489441,14.1022618 15.5171225,15.1686104 C15.9988501,15.3779345 16.3772089,15.4886587 16.6666025,15.5592461 C17.1484914,15.6685272 17.5986278,15.6347899 17.9341001,15.5464721 C18.310872,15.4439858 19.0786327,15.0273161 19.2788727,14.5532231 C19.4791127,14.0791301 19.4791127,13.6701325 19.4020858,13.5594083 C19.325059,13.4486841 19.1895978,13.4102206 18.9999507,13.3716571 C18.8818038,13.3506969 18.7205056,13.3262023 18.5412989,13.2950034 C18.3620921,13.2638046 17.9656953,13.1725519 17.6915026,13.4744748 Z M12,0 C5.373,0 0,5.373 0,12 C0,18.627 5.373,24 12,24 C18.627,24 24,18.627 24,12 C24,5.373 18.627,0 12,0 Z"/></svg></a>
+          <a class="icon-btn" href="https://wa.me/917208433292" target="_blank" rel="noopener" title="WhatsApp"><svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
           <a class="navphone navlink" href="tel:+917208433292" title="Call">+91 72084 33292</a>
+          <button class="menu-btn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu"><span></span><span></span></button>
         </div>
         <span class="navstatus" style="display:inline-flex;align-items:center;gap:8px;color:var(--ink);white-space:nowrap"><span style="width:7px;height:7px;border-radius:50%;background:var(--accent);animation:dot 2s ease-in-out infinite"></span>open to work</span>
       </div>
     </div>
+    <div id="mobile-menu" class="mobile-menu" hidden>
+      <a href="#work"><span>01</span>work</a>
+      <a href="#projects"><span>02</span>projects</a>
+      <a href="#skills"><span>03</span>skills</a>
+      <a href="#contact"><span>04</span>contact</a>
+      <a href="./sakhaon/" class="mm-sakha"><span>✦</span>sakhaon</a>
+      <div class="mm-foot">
+        <a href="tel:+917208433292">+91 72084 33292</a>
+        <span class="mm-status"><i></i>open to work</span>
+      </div>
+    </div>
   </nav>
 
-  <header id="top" style="max-width:1240px;margin:0 auto;padding:76px 40px 0">
+  <header id="top" class="wrap hero" style="max-width:1240px;margin:0 auto;padding:76px 40px 0">
     <div class="two" style="display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,0.85fr);gap:64px;align-items:end">
       <div style="min-width:0;display:flex;flex-direction:column;gap:28px">
-        <div data-reveal="" style="display:flex;align-items:center;gap:16px">
+        <div class="hero-meta" data-reveal="" style="display:flex;align-items:center;gap:16px">
           <img src="./assets/profile.jpg" alt="Aakash Anil Madkaikar" width="64" height="64" style="width:64px;height:64px;border-radius:50%;object-fit:cover;border:1px solid var(--line2)" />
           <span style="font-family:'DM Mono',monospace;font-size:12.5px;letter-spacing:0.04em;color:var(--muted)">India · Mumbai · remote-ready</span>
         </div>
         <h1 data-reveal="" style="margin:0;font-weight:700;font-size:clamp(34px,4.4vw,60px);line-height:1;letter-spacing:-0.03em">Aakash Anil Madkaikar</h1>
         <p data-reveal="" style="margin:0;font-family:'DM Mono',monospace;font-size:clamp(13px,1.35vw,16px);line-height:1.5;color:var(--ink);max-width:600px">Senior AI Engineer <span style="color:var(--accent)">/</span> Agentic Systems &amp; Multi-Agent Orchestration</p>
         <p data-reveal="" style="margin:0;font-size:clamp(19px,2vw,24px);line-height:1.45;color:var(--ink2);max-width:620px;text-wrap:pretty">Most days I don't write the code — I build the Claude Code pipelines that do: agents that plan, execute, verify, and ship real work unattended. <strong style="color:var(--accent);font-weight:500">I build multi-agent orchestrations that take work off your plate — for good.</strong></p>
-        <div data-reveal="" style="display:flex;flex-wrap:wrap;gap:12px;padding-bottom:8px">
+        <div class="cta" data-reveal="" style="display:flex;flex-wrap:wrap;gap:12px;padding-bottom:8px">
           <a class="btn-primary" href="#projects">View projects →</a>
           <a class="btn-ghost" href="#contact">Get in touch</a>
         </div>
       </div>
 
-      <figure data-reveal="" style="margin:0;min-width:0;background:var(--band);color:var(--bandText);padding:22px;display:flex;flex-direction:column;gap:16px">
+      <figure class="term" data-reveal="" style="margin:0;min-width:0;background:var(--band);color:var(--bandText);padding:22px;display:flex;flex-direction:column;gap:16px">
         <figcaption style="display:flex;align-items:center;justify-content:space-between;font-family:'DM Mono',monospace;font-size:11px;color:var(--bandMuted);letter-spacing:0.04em">
           <span>agent-run.log — click to type</span>
           <span style="display:inline-flex;align-items:center;gap:7px"><span style="width:6px;height:6px;border-radius:50%;background:var(--accentOnBand);animation:dot 1.6s ease-in-out infinite"></span>live</span>
@@ -82,7 +94,7 @@
       </figure>
     </div>
 
-    <div class="three" style="display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-top:72px">
+    <div class="three stats" style="display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-top:72px">
       <div data-reveal="" style="background:var(--paper);padding:28px 4px 26px 0;display:flex;flex-direction:column;gap:4px">
         <span id="stat-yrs" style="font-weight:700;font-size:clamp(34px,4vw,52px);letter-spacing:-0.03em;line-height:1">12</span>
         <span style="font-family:'DM Mono',monospace;font-size:12px;color:var(--muted)">years shipping code</span>
@@ -113,7 +125,7 @@
     </div>
   </div>
 
-  <section id="about" style="max-width:1240px;margin:0 auto;padding:104px 40px;display:flex;flex-direction:column;gap:56px">
+  <section id="about" class="wrap sec" style="max-width:1240px;margin:0 auto;padding:104px 40px;display:flex;flex-direction:column;gap:56px">
     <div class="two" style="display:grid;grid-template-columns:minmax(0,0.9fr) minmax(0,1.1fr);gap:64px">
       <h2 data-reveal="" style="margin:0;font-weight:700;font-size:clamp(30px,3.6vw,50px);line-height:1.04;letter-spacing:-0.03em">Demos are easy.<br />Reliability is the <span style="color:var(--accent)">product</span>.</h2>
       <div style="display:flex;flex-direction:column;gap:22px;color:var(--ink2);max-width:640px;text-wrap:pretty">
@@ -142,7 +154,7 @@
   </section>
 
   <section id="projects" style="background:var(--band);color:var(--bandText)">
-    <div style="max-width:1240px;margin:0 auto;padding:104px 40px;display:flex;flex-direction:column;gap:48px">
+    <div class="wrap sec" style="max-width:1240px;margin:0 auto;padding:104px 40px;display:flex;flex-direction:column;gap:48px">
       <div data-reveal="" style="display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:16px">
         <h2 style="margin:0;font-weight:700;font-size:clamp(30px,3.6vw,50px);line-height:1.04;letter-spacing:-0.03em">Proof of work</h2>
         <span style="font-family:'DM Mono',monospace;font-size:12.5px;color:var(--bandMuted)">selected · 2024—2026</span>
@@ -157,9 +169,9 @@
             <span style="display:flex;align-items:baseline;gap:12px;margin-top:8px"><span style="font-weight:700;font-size:clamp(44px,5vw,68px);letter-spacing:-0.04em;line-height:1;color:var(--accentOnBand)">90%</span><span style="font-family:'DM Mono',monospace;font-size:12.5px;color:var(--bandMuted);max-width:150px">reduction in invoicing time</span></span>
           </div>
           <div style="display:flex;flex-direction:column;gap:22px">
-            <div style="display:grid;grid-template-columns:96px minmax(0,1fr);gap:20px"><span style="font-family:'DM Mono',monospace;font-size:11.5px;color:var(--bandMuted);padding-top:4px">problem</span><span style="color:var(--bandBody)">One of the largest players in metals and ores ran invoicing, treasury, inventory, and accounts across disconnected manual processes.</span></div>
-            <div style="display:grid;grid-template-columns:96px minmax(0,1fr);gap:20px"><span style="font-family:'DM Mono',monospace;font-size:11.5px;color:var(--bandMuted);padding-top:4px">build</span><span style="color:var(--bandBody)">All-in-one full-stack platform: full-scale invoicing with a custom document-extraction pipeline, treasury and risk management, inventory management, reporting, and accounts integration.</span></div>
-            <div style="display:grid;grid-template-columns:96px minmax(0,1fr);gap:20px"><span style="font-family:'DM Mono',monospace;font-size:11.5px;color:var(--bandMuted);padding-top:4px">stack</span><span style="color:var(--bandBody)">Python backend, Vite + HTML frontend, deployed on AWS.</span></div>
+            <div class="kv" style="display:grid;grid-template-columns:96px minmax(0,1fr);gap:20px"><span style="font-family:'DM Mono',monospace;font-size:11.5px;color:var(--bandMuted);padding-top:4px">problem</span><span style="color:var(--bandBody)">One of the largest players in metals and ores ran invoicing, treasury, inventory, and accounts across disconnected manual processes.</span></div>
+            <div class="kv" style="display:grid;grid-template-columns:96px minmax(0,1fr);gap:20px"><span style="font-family:'DM Mono',monospace;font-size:11.5px;color:var(--bandMuted);padding-top:4px">build</span><span style="color:var(--bandBody)">All-in-one full-stack platform: full-scale invoicing with a custom document-extraction pipeline, treasury and risk management, inventory management, reporting, and accounts integration.</span></div>
+            <div class="kv" style="display:grid;grid-template-columns:96px minmax(0,1fr);gap:20px"><span style="font-family:'DM Mono',monospace;font-size:11.5px;color:var(--bandMuted);padding-top:4px">stack</span><span style="color:var(--bandBody)">Python backend, Vite + HTML frontend, deployed on AWS.</span></div>
           </div>
         </div>
       </article>
@@ -184,7 +196,7 @@
     </div>
   </section>
 
-  <section id="work" style="max-width:1240px;margin:0 auto;padding:104px 40px;display:flex;flex-direction:column;gap:40px">
+  <section id="work" class="wrap sec" style="max-width:1240px;margin:0 auto;padding:104px 40px;display:flex;flex-direction:column;gap:40px">
     <div data-reveal="" style="display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:16px">
       <h2 style="margin:0;font-weight:700;font-size:clamp(30px,3.6vw,50px);line-height:1.04;letter-spacing:-0.03em">12 years in production</h2>
       <span style="font-family:'DM Mono',monospace;font-size:12.5px;color:var(--muted)">15+ apps shipped</span>
@@ -235,10 +247,10 @@
   </section>
 
   <section id="skills" style="border-top:1px solid var(--line);background:var(--paper2)">
-    <div style="max-width:1240px;margin:0 auto;padding:104px 40px;display:flex;flex-direction:column;gap:44px">
+    <div class="wrap sec" style="max-width:1240px;margin:0 auto;padding:104px 40px;display:flex;flex-direction:column;gap:44px">
       <h2 data-reveal="" style="margin:0;font-weight:700;font-size:clamp(30px,3.6vw,50px);line-height:1.04;letter-spacing:-0.03em">Capability stack</h2>
       <div class="two" style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
-        <div data-reveal="" style="background:var(--surface);border:1px solid var(--line2);padding:34px;display:flex;flex-direction:column;gap:20px">
+        <div data-reveal="" class="skill-card" style="background:var(--surface);border:1px solid var(--line2);padding:34px;display:flex;flex-direction:column;gap:20px">
           <span style="font-family:'DM Mono',monospace;font-size:11.5px;color:var(--accent)">core — agentic / AI systems</span>
           <ul style="margin:0;padding:0;list-style:none;display:grid;grid-template-columns:1fr;gap:11px;font-size:16.5px">
             <li style="display:flex;gap:14px"><span style="color:var(--faint);font-family:'DM Mono',monospace;font-size:12px;padding-top:3px">01</span>Claude Code — custom agents · hooks · headless runs</li>
@@ -246,7 +258,7 @@
             <li style="display:flex;gap:14px"><span style="color:var(--faint);font-family:'DM Mono',monospace;font-size:12px;padding-top:3px">03</span>MCP tool servers — Figma MCP for automated UI/UX</li>
             <li style="display:flex;gap:14px"><span style="color:var(--faint);font-family:'DM Mono',monospace;font-size:12px;padding-top:3px">04</span>Context engineering — prompt caching · memory .md files · memory agents</li>
             <li style="display:flex;gap:14px"><span style="color:var(--faint);font-family:'DM Mono',monospace;font-size:12px;padding-top:3px">05</span>Model routing — model tier · effort level · cost per run</li>
-            <li style="display:flex;gap:14px"><span style="color:var(--faint);font-family:'DM Mono',monospace;font-size:12px;padding-top:3px">06</span><a href="https://github.com/aakash7192/skypowers" target="_blank" rel="noopener" style="text-decoration:underline;text-underline-offset:3px">skypowers</a> — published Claude Code plugin · skills · slash commands</li>
+            <li style="display:flex;gap:14px"><span style="color:var(--faint);font-family:'DM Mono',monospace;font-size:12px;padding-top:3px">06</span><span><a href="https://github.com/aakash7192/skypowers" target="_blank" rel="noopener" style="text-decoration:underline;text-underline-offset:3px">skypowers</a> — published Claude Code plugin · skills · slash commands</span></li>
             <li style="display:flex;gap:14px"><span style="color:var(--faint);font-family:'DM Mono',monospace;font-size:12px;padding-top:3px">07</span>/loop · /goal commands — pixel-perfect invoices on letterhead, exact to spec</li>
             <li style="display:flex;gap:14px"><span style="color:var(--faint);font-family:'DM Mono',monospace;font-size:12px;padding-top:3px">08</span>Gemini API · open-source &amp; closed LLMs</li>
             <li style="display:flex;gap:14px"><span style="color:var(--faint);font-family:'DM Mono',monospace;font-size:12px;padding-top:3px">09</span>Claude Design → Claude Code — pixel-perfect UI handoff</li>
@@ -255,7 +267,7 @@
             <li style="display:flex;gap:14px"><span style="color:var(--faint);font-family:'DM Mono',monospace;font-size:12px;padding-top:3px">12</span>Supabase — database integrations for agent workflows</li>
           </ul>
         </div>
-        <div data-reveal="" style="background:var(--surface);border:1px solid var(--line2);padding:34px;display:flex;flex-direction:column;gap:20px">
+        <div data-reveal="" class="skill-card" style="background:var(--surface);border:1px solid var(--line2);padding:34px;display:flex;flex-direction:column;gap:20px">
           <span style="font-family:'DM Mono',monospace;font-size:11.5px;color:var(--muted)">foundation — production engineering</span>
           <ul style="margin:0;padding:0;list-style:none;display:grid;grid-template-columns:1fr;gap:11px;font-size:16.5px;color:var(--ink2)">
             <li style="display:flex;gap:14px"><span style="color:var(--faint);font-family:'DM Mono',monospace;font-size:12px;padding-top:3px">01</span>Python — full-stack services · automation scripts</li>
@@ -275,7 +287,7 @@
   </section>
 
   <section id="contact" style="border-top:1px solid var(--line)">
-    <div style="max-width:1240px;margin:0 auto;padding:112px 40px;display:flex;flex-direction:column;gap:52px">
+    <div class="wrap sec" style="max-width:1240px;margin:0 auto;padding:112px 40px;display:flex;flex-direction:column;gap:52px">
       <h2 data-reveal="" style="margin:0;font-weight:700;font-size:clamp(36px,6vw,84px);line-height:0.98;letter-spacing:-0.035em;max-width:900px">Let's build systems that <span style="color:var(--accent)">run themselves.</span></h2>
       <div class="two" style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
         <a class="contact-card" data-reveal="" href="mailto:aakash7192@gmail.com">
@@ -286,7 +298,7 @@
           </span>
         </a>
         <a class="contact-card" data-reveal="" href="https://wa.me/917208433292" target="_blank" rel="noopener">
-          <span style="width:34px;height:34px;flex:0 0 auto;border:1px solid var(--line2);display:flex;align-items:center;justify-content:center"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M17.6915026,13.4744748 C17.4788374,13.375 16.8384245,13.0616981 16.6381845,12.9845711 C16.4379445,12.9074442 16.3023833,12.8688807 16.1668221,13.0616981 C16.0312609,13.254515 15.6957886,13.8353758 15.5728957,13.9709371 C15.4500029,14.1064983 15.3271101,14.1450617 15.1344327,14.0294005 C14.9417552,13.9137392 14.4124333,13.758178 13.7720204,13.1773172 C13.2797486,12.7171196 12.9442763,12.1363588 12.8213835,11.9435414 C12.6984906,11.7507241 12.8213835,11.6350628 12.9442763,11.5194016 C13.0671691,11.4037403 13.2029303,11.2495033 13.3258232,11.1266104 C13.4487161,11.0037175 13.4872797,10.9251442 13.5644066,10.7909829 C13.6415335,10.6568216 13.6030699,10.4640042 13.5259431,10.364910 C13.4488162,10.2658159 13.0671691,9.625803 12.8669291,9.13903743 C12.6666891,8.65227185 12.4664491,8.73084514 12.3435562,8.72227822 C12.2206633,8.71371131 12.085302,8.71371131 11.9497408,8.71371131 C11.8141796,8.71371131 11.5815261,8.75227489 11.3812861,8.94508748 C11.1810461,9.13790007 10.5406332,9.45120297 10.5406332,10.0563267 C10.5406332,10.6614504 11.3970572,11.2495033 11.5199501,11.3850645 C11.6428429,11.5206257 13.1489441,14.1022618 15.5171225,15.1686104 C15.9988501,15.3779345 16.3772089,15.4886587 16.6666025,15.5592461 C17.1484914,15.6685272 17.5986278,15.6347899 17.9341001,15.5464721 C18.310872,15.4439858 19.0786327,15.0273161 19.2788727,14.5532231 C19.4791127,14.0791301 19.4791127,13.6701325 19.4020858,13.5594083 C19.325059,13.4486841 19.1895978,13.4102206 18.9999507,13.3716571 C18.8818038,13.3506969 18.7205056,13.3262023 18.5412989,13.2950034 C18.3620921,13.2638046 17.9656953,13.1725519 17.6915026,13.4744748 Z M12,0 C5.373,0 0,5.373 0,12 C0,18.627 5.373,24 12,24 C18.627,24 24,18.627 24,12 C24,5.373 18.627,0 12,0 Z"/></svg></span>
+          <span style="width:34px;height:34px;flex:0 0 auto;border:1px solid var(--line2);display:flex;align-items:center;justify-content:center"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></span>
           <span style="display:flex;flex-direction:column;gap:5px">
             <span style="font-family:'DM Mono',monospace;font-size:11.5px;color:var(--muted)">whatsapp · call</span>
             <span style="font-size:19px">+91 72084 33292</span>
@@ -304,7 +316,7 @@
   </section>
 
   <footer style="border-top:1px solid var(--line)">
-    <div style="max-width:1240px;margin:0 auto;padding:28px 40px;display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;font-family:'DM Mono',monospace;font-size:12px;color:var(--muted)">
+    <div class="wrap" style="max-width:1240px;margin:0 auto;padding:28px 40px;display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;font-family:'DM Mono',monospace;font-size:12px;color:var(--muted)">
       <span>Aakash Anil Madkaikar — Senior AI Engineer</span>
       <span>Built as a living document · 2026</span>
     </div>

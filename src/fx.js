@@ -60,7 +60,16 @@ function splitName() {
   const wrap = document.createElement('span');
   wrap.className = 'fx-split';
   wrap.setAttribute('aria-hidden', 'true');
-  [...text].forEach((ch, i) => {
+  /* letters are grouped per word so the name still wraps on narrow screens */
+  let i = 0;
+  text.split(' ').forEach((word, w) => {
+    if (w) wrap.appendChild(document.createTextNode(' '));
+    const wordEl = document.createElement('span');
+    wordEl.className = 'fx-word';
+    [...word].forEach((ch) => addLetter(wordEl, ch, i++));
+    wrap.appendChild(wordEl);
+  });
+  function addLetter(parent, ch, i) {
     const s = document.createElement('span');
     s.textContent = ch;
     s.style.setProperty('--i', i);
@@ -78,8 +87,8 @@ function splitName() {
     } else {
       s.classList.add('fx-in');
     }
-    wrap.appendChild(s);
-  });
+    parent.appendChild(s);
+  }
   h1.textContent = '';
   h1.appendChild(wrap);
 }

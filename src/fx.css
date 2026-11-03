@@ -48,11 +48,12 @@ html.fx-cursor-on .fx-cur-dot,html.fx-cursor-on .fx-cur-ring{opacity:1}
 @keyframes fx-spark{from{opacity:1;transform:rotate(var(--a)) translateY(0) scaleY(1)}to{opacity:0;transform:rotate(var(--a)) translateY(-28px) scaleY(.3)}}
 
 /* ── Hero name: per-letter rise, hover wave ── */
-.fx-split{display:inline-block;white-space:pre}
-.fx-split > span{display:inline-block;transform:translateY(.9em) rotate(6deg);opacity:0;filter:blur(8px);animation:fx-rise .9s cubic-bezier(.2,.8,.2,1) forwards;animation-delay:calc(var(--i) * 32ms + 150ms);transition:color .3s}
-.fx-split > span.fx-in{opacity:1;transform:none;filter:none;animation:none}
-.fx-split > span.fx-in.fx-hop{animation:fx-hop .6s cubic-bezier(.3,1.6,.5,1)}
-.fx-split > span.fx-hop,.fx-split > span:hover{color:var(--accent)}
+.fx-split{display:inline}
+.fx-word{display:inline-block;white-space:nowrap}
+.fx-word > span{display:inline-block;transform:translateY(.9em) rotate(6deg);opacity:0;filter:blur(8px);animation:fx-rise .9s cubic-bezier(.2,.8,.2,1) forwards;animation-delay:calc(var(--i) * 32ms + 150ms);transition:color .3s}
+.fx-word > span.fx-in{opacity:1;transform:none;filter:none;animation:none}
+.fx-word > span.fx-in.fx-hop{animation:fx-hop .6s cubic-bezier(.3,1.6,.5,1)}
+.fx-word > span.fx-hop,.fx-word > span:hover{color:var(--accent)}
 @keyframes fx-rise{to{transform:none;opacity:1;filter:none}}
 @keyframes fx-hop{0%{transform:none}40%{transform:translateY(-.22em) rotate(-4deg)}100%{transform:none}}
 
@@ -137,4 +138,4 @@ html.fx-cursor-on .fx-cur-dot,html.fx-cursor-on .fx-cur-ring{opacity:1}
 .sakha-fab::before{content:"";position:absolute;inset:-1px;border:1px solid oklch(0.76 0.15 60);animation:fx-pulse 2.6s ease-out infinite;pointer-events:none}
 @keyframes fx-pulse{0%{opacity:.8;transform:scale(1)}100%{opacity:0;transform:scale(1.25,1.6)}}
 
-@media (prefers-reduced-motion:reduce){.fx-split > span{opacity:1;transform:none;filter:none}.fx-grain{display:none}}
+@media (prefers-reduced-motion:reduce){.fx-word > span{opacity:1;transform:none;filter:none}.fx-grain{display:none}}
