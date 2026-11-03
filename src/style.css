@@ -140,7 +140,8 @@ html.menu-open .sakha-fab{opacity:0;pointer-events:none}
   .contact-card > span:last-child > span:last-child{font-size:17px !important;overflow-wrap:anywhere}
 
   footer .wrap{flex-direction:column;gap:6px !important;padding-bottom:88px !important}
-  .sakha-fab{right:max(16px,env(safe-area-inset-right));bottom:max(16px,env(safe-area-inset-bottom))}
+  .sakha-fab{right:max(16px,env(safe-area-inset-right));bottom:max(16px,env(safe-area-inset-bottom));transition:opacity .35s,transform .45s cubic-bezier(.2,.8,.2,1),background .3s,color .3s}
+  html.in-hero .sakha-fab{opacity:0;transform:translateY(24px) scale(.9);pointer-events:none;visibility:hidden;transition:opacity .35s,transform .45s cubic-bezier(.2,.8,.2,1),visibility 0s .45s}
 }
 
 @media (max-width:360px){

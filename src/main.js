@@ -184,3 +184,12 @@ menuBtn.addEventListener('click', () => setMenu(menuBtn.getAttribute('aria-expan
 menu.addEventListener('click', (e) => { if (e.target.closest('a')) setMenu(false); });
 document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && menu.classList.contains('is-open')) { setMenu(false); menuBtn.focus(); } });
 window.matchMedia('(min-width: 861px)').addEventListener('change', (e) => { if (e.matches) setMenu(false); });
+
+/* ── Sakha FAB: on phones, stay out of the way until the hero is passed ─── */
+
+const hero = document.getElementById('top');
+if (hero && 'IntersectionObserver' in window) {
+  new IntersectionObserver(([entry]) => {
+    document.documentElement.classList.toggle('in-hero', entry.isIntersecting);
+  }).observe(hero);
+}
