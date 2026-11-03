@@ -1,4 +1,5 @@
 import './style.css';
+import './fx.js';
 
 /* ──────────────────────────────────────────────────────────────────────────
    Vanilla port of the design's DCLogic component.
@@ -139,6 +140,7 @@ function observe() {
       setTimeout(() => {
         el.style.opacity = '1';
         el.style.transform = 'none';
+        setTimeout(() => { el.dataset.shown = '1'; }, 700);
       }, k * 70);
       obs.unobserve(el);
       if (el.textContent.includes('years in production')) count();
@@ -158,4 +160,36 @@ if (reduced) {
 } else {
   setInterval(step, 55);
   observe();
+}
+
+/* ── Mobile menu ────────────────────────────────────────────────────────── */
+
+const menuBtn = document.querySelector('.menu-btn');
+const menu = document.getElementById('mobile-menu');
+
+function setMenu(open) {
+  menuBtn.setAttribute('aria-expanded', String(open));
+  menuBtn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+  document.documentElement.classList.toggle('menu-open', open);
+  if (open) {
+    menu.hidden = false;
+    requestAnimationFrame(() => menu.classList.add('is-open'));
+  } else {
+    menu.classList.remove('is-open');
+    setTimeout(() => { if (!menu.classList.contains('is-open')) menu.hidden = true; }, reduced ? 0 : 350);
+  }
+}
+
+menuBtn.addEventListener('click', () => setMenu(menuBtn.getAttribute('aria-expanded') !== 'true'));
+menu.addEventListener('click', (e) => { if (e.target.closest('a')) setMenu(false); });
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && menu.classList.contains('is-open')) { setMenu(false); menuBtn.focus(); } });
+window.matchMedia('(min-width: 861px)').addEventListener('change', (e) => { if (e.matches) setMenu(false); });
+
+/* ── Sakha FAB: on phones, stay out of the way until the hero is passed ─── */
+
+const hero = document.getElementById('top');
+if (hero && 'IntersectionObserver' in window) {
+  new IntersectionObserver(([entry]) => {
+    document.documentElement.classList.toggle('in-hero', entry.isIntersecting);
+  }).observe(hero);
 }

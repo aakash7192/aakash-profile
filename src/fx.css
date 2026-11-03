@@ -1,0 +1,141 @@
+/* ── FX layer ──────────────────────────────────────────────────────────────
+   Motion, cursor and ambient effects layered on top of the core design.
+   Nothing here changes layout or content; remove the import in main.js and
+   the site falls back to the original look. */
+
+:root{--accentGlow:oklch(0.7 0.14 250 / .35);--accentSoft:oklch(0.7 0.14 250 / .14)}
+
+/* ── Scroll progress ── */
+.fx-progress{position:fixed;top:0;left:0;right:0;height:2px;z-index:60;pointer-events:none;transform-origin:0 50%;transform:scaleX(0);background:linear-gradient(90deg,oklch(0.7 0.14 250),oklch(0.78 0.13 200),oklch(0.76 0.15 60))}
+
+/* ── Film grain ── */
+.fx-grain{position:fixed;inset:0;z-index:55;pointer-events:none;opacity:.05;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+/* ── Hero backdrop: agent network canvas + drifting aurora ── */
+.fx-hero-bg{position:absolute;top:0;left:0;right:0;height:min(1080px,115vh);z-index:0;pointer-events:none;overflow:hidden}
+.fx-hero-bg canvas{position:absolute;inset:0;width:100%;height:100%}
+.fx-blob{position:absolute;border-radius:50%;opacity:.6;will-change:transform}
+.fx-blob.a{width:520px;height:520px;left:-120px;top:40px;background:radial-gradient(circle,oklch(0.55 0.16 250 / .55),transparent 65%);animation:fx-drift-a 22s ease-in-out infinite alternate}
+.fx-blob.b{width:460px;height:460px;right:-80px;top:220px;background:radial-gradient(circle,oklch(0.6 0.13 200 / .4),transparent 70%);animation:fx-drift-b 26s ease-in-out infinite alternate}
+.fx-blob.c{width:340px;height:340px;left:42%;top:520px;background:radial-gradient(circle,oklch(0.7 0.15 60 / .18),transparent 70%);animation:fx-drift-a 30s ease-in-out infinite alternate-reverse}
+@keyframes fx-drift-a{0%{transform:translate(0,0) scale(1)}50%{transform:translate(160px,80px) scale(1.15)}100%{transform:translate(60px,-40px) scale(.95)}}
+@keyframes fx-drift-b{0%{transform:translate(0,0) scale(1)}50%{transform:translate(-140px,60px) scale(1.1)}100%{transform:translate(-40px,-60px) scale(1.05)}}
+#top,.fx-above{position:relative;z-index:1}
+
+/* ── Custom cursor ── */
+html.fx-cursor,html.fx-cursor *{cursor:none !important}
+.fx-cur-dot,.fx-cur-ring{position:fixed;top:0;left:0;z-index:9999;pointer-events:none;opacity:0;transition:opacity .3s}
+html.fx-cursor-on .fx-cur-dot,html.fx-cursor-on .fx-cur-ring{opacity:1}
+.fx-cur-dot{width:6px;height:6px;margin:-3px 0 0 -3px;border-radius:50%;background:var(--accent);box-shadow:0 0 12px var(--accent)}
+.fx-cur-ring{width:38px;height:38px;margin:-19px 0 0 -19px}
+.fx-cur-ring > i{position:absolute;inset:0;border:1px solid oklch(0.7 0.14 250 / .7);border-radius:50%;display:flex;align-items:center;justify-content:center;font-style:normal;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.04em;color:var(--ink);white-space:nowrap;transition:transform .35s cubic-bezier(.2,.8,.2,1),border-radius .35s,background .35s,border-color .35s,width .35s,height .35s,inset .35s}
+.fx-cur-ring > i > b{font-weight:400;opacity:0;transform:scale(.6);transition:opacity .2s,transform .3s}
+.fx-cur-ring > i::before,.fx-cur-ring > i::after{content:"";position:absolute;width:5px;height:5px;border-color:var(--accent);border-style:solid;opacity:.9;transition:opacity .3s}
+.fx-cur-ring > i::before{top:-3px;left:-3px;border-width:1px 0 0 1px}
+.fx-cur-ring > i::after{bottom:-3px;right:-3px;border-width:0 1px 1px 0}
+/* over a link / button: ring swells into a lens with a label */
+.fx-cur-ring.is-link > i{transform:scale(2);background:oklch(0.7 0.14 250 / .1);border-color:var(--accent);box-shadow:0 0 24px -4px var(--accentGlow)}
+.fx-cur-ring.is-link > i > b{opacity:1;transform:scale(.5)}
+.fx-cur-ring.is-link > i::before,.fx-cur-ring.is-link > i::after{opacity:0}
+.fx-cur-dot.is-link{opacity:0 !important}
+/* over typeable text: ring collapses into a caret */
+.fx-cur-ring.is-text > i{inset:0 17px;border-radius:2px;background:var(--accent);border-color:var(--accent)}
+.fx-cur-ring.is-text > i::before,.fx-cur-ring.is-text > i::after{opacity:0}
+.fx-cur-dot.is-text{opacity:0 !important}
+.fx-cur-ring.is-down > i{transform:scale(.7)}
+.fx-cur-ring.is-link.is-down > i{transform:scale(1.7)}
+.fx-spark{position:fixed;z-index:9998;pointer-events:none;width:2px;height:10px;margin:-5px 0 0 -1px;background:var(--accent);border-radius:2px;animation:fx-spark .55s cubic-bezier(.2,.7,.2,1) forwards}
+@keyframes fx-spark{from{opacity:1;transform:rotate(var(--a)) translateY(0) scaleY(1)}to{opacity:0;transform:rotate(var(--a)) translateY(-28px) scaleY(.3)}}
+
+/* ── Hero name: per-letter rise, hover wave ── */
+.fx-split{display:inline}
+.fx-word{display:inline-block;white-space:nowrap}
+.fx-word > span{display:inline-block;transform:translateY(.9em) rotate(6deg);opacity:0;filter:blur(8px);animation:fx-rise .9s cubic-bezier(.2,.8,.2,1) forwards;animation-delay:calc(var(--i) * 32ms + 150ms);transition:color .3s}
+.fx-word > span.fx-in{opacity:1;transform:none;filter:none;animation:none}
+.fx-word > span.fx-in.fx-hop{animation:fx-hop .6s cubic-bezier(.3,1.6,.5,1)}
+.fx-word > span.fx-hop,.fx-word > span:hover{color:var(--accent)}
+@keyframes fx-rise{to{transform:none;opacity:1;filter:none}}
+@keyframes fx-hop{0%{transform:none}40%{transform:translateY(-.22em) rotate(-4deg)}100%{transform:none}}
+
+/* ── Avatar: orbiting conic ring ── */
+.fx-avatar{position:relative;display:inline-flex;flex:0 0 auto;border-radius:50%;padding:3px}
+.fx-avatar::before{content:"";position:absolute;inset:0;border-radius:50%;background:conic-gradient(from var(--fx-ang,0deg),oklch(0.7 0.14 250),transparent 30%,oklch(0.78 0.13 200) 55%,transparent 75%,oklch(0.7 0.14 250));animation:fx-spin 4s linear infinite;-webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 2px),#000 calc(100% - 1.5px));mask:radial-gradient(farthest-side,transparent calc(100% - 2px),#000 calc(100% - 1.5px))}
+.fx-avatar::after{content:"";position:absolute;right:2px;bottom:4px;width:11px;height:11px;border-radius:50%;background:var(--accent);border:2px solid var(--paper);animation:dot 2s ease-in-out infinite}
+.fx-avatar img{position:relative;display:block}
+@keyframes fx-spin{to{transform:rotate(1turn)}}
+
+/* ── Accent words: travelling shine ── */
+.fx-shine{background:linear-gradient(100deg,var(--accent) 0%,var(--accent) 38%,oklch(0.92 0.06 220) 50%,var(--accent) 62%,var(--accent) 100%);background-size:250% 100%;-webkit-background-clip:text;background-clip:text;color:transparent !important;animation:fx-shine 5s ease-in-out infinite}
+@keyframes fx-shine{0%{background-position:100% 0}60%,100%{background-position:-50% 0}}
+
+/* ── Buttons: sheen sweep + magnetic ── */
+.btn-primary,.btn-ghost{display:inline-block;transition:background .3s,color .3s,box-shadow .3s,transform .4s cubic-bezier(.2,.8,.2,1)}
+.btn-primary::after{content:"";position:absolute;top:0;bottom:0;left:0;width:40%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.45),transparent);transform:translateX(-120%);pointer-events:none}
+.btn-primary:hover::after{animation:sheen .9s ease}
+.btn-primary:hover{box-shadow:0 10px 40px -8px var(--accentGlow)}
+.btn-ghost:hover{box-shadow:0 10px 40px -12px rgba(236,237,239,.35)}
+.fx-mag{will-change:transform}
+.icon-btn,.navlink{transition:border-color .3s,background .3s,color .3s,transform .4s cubic-bezier(.2,.8,.2,1)}
+
+/* ── Nav: animated underline + scroll-spy ── */
+.fx-navlink{position:relative;transition:color .25s}
+.fx-navlink::after{content:"";position:absolute;left:0;right:0;bottom:-5px;height:1px;background:var(--accent);transform:scaleX(0);transform-origin:100% 50%;transition:transform .4s cubic-bezier(.2,.8,.2,1)}
+.fx-navlink:hover::after,.fx-navlink.is-active::after{transform:scaleX(1);transform-origin:0 50%}
+.fx-navlink.is-active{color:var(--ink) !important}
+
+/* ── Spotlight + tilt cards ── */
+.fx-spot{position:relative;isolation:isolate;transform-style:preserve-3d}
+.fx-spot::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;opacity:0;transition:opacity .4s;background:radial-gradient(420px circle at var(--mx,50%) var(--my,50%),var(--accentSoft),transparent 60%)}
+.fx-spot::after{content:"";position:absolute;inset:-1px;z-index:2;pointer-events:none;opacity:0;transition:opacity .4s;padding:1px;background:radial-gradient(260px circle at var(--mx,50%) var(--my,50%),oklch(0.7 0.14 250 / .9),transparent 70%);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0)}
+.fx-spot:hover::before,.fx-spot:hover::after{opacity:1}
+
+/* terminal panel gets a faint scanline + edge glow */
+.fx-term{box-shadow:0 30px 80px -30px rgba(0,0,0,.7),0 0 0 1px var(--bandLine)}
+.fx-term::before{background:radial-gradient(420px circle at var(--mx,50%) var(--my,50%),oklch(0.7 0.14 250 / .1),transparent 60%),repeating-linear-gradient(0deg,rgba(255,255,255,.018) 0 1px,transparent 1px 3px)}
+
+/* ── Stats: hover glow and baseline sweep ── */
+.fx-stat{position:relative;transition:background .4s}
+.fx-stat::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:2px;background:linear-gradient(90deg,var(--accent),transparent);transform:scaleX(0);transform-origin:0 50%;transition:transform .6s cubic-bezier(.2,.8,.2,1)}
+.fx-stat:hover::after{transform:scaleX(1)}
+.fx-stat:hover{background:linear-gradient(180deg,var(--paper),var(--paper2)) !important}
+.fx-stat > span:first-child{display:inline-block;transition:transform .5s cubic-bezier(.3,1.5,.5,1),text-shadow .4s}
+.fx-stat:hover > span:first-child{transform:translateY(-4px);text-shadow:0 0 30px var(--accentGlow)}
+
+/* ── Marquee: edge fades, pause on hover ── */
+.fx-marquee{-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+.fx-marquee:hover > div{animation-play-state:paused}
+.fx-marquee span{transition:color .25s}
+.fx-marquee span:hover{color:var(--ink)}
+
+/* ── Principles / project cards: lift ── */
+.fx-lift{transition:transform .5s cubic-bezier(.2,.8,.2,1),border-color .4s}
+.fx-lift:hover{border-top-color:var(--accent) !important}
+.fx-lift > *{transition:transform .5s cubic-bezier(.2,.8,.2,1)}
+.fx-lift:hover > *:first-child{transform:translateX(6px)}
+
+/* ── Work timeline rows ── */
+.fx-role{position:relative;transition:background .5s}
+.fx-role::before{content:"";position:absolute;left:0;top:-1px;height:1px;width:100%;background:var(--accent);transform:scaleX(0);transform-origin:0 50%;transition:transform .7s cubic-bezier(.2,.8,.2,1)}
+.fx-role:hover::before{transform:scaleX(1)}
+.fx-role:hover{background:linear-gradient(90deg,var(--accentSoft),transparent 60%)}
+.fx-role > *{transition:transform .5s cubic-bezier(.2,.8,.2,1)}
+.fx-role:hover > *{transform:translateX(12px)}
+.fx-role li{position:relative;transition:color .3s}
+.fx-role:hover li{color:var(--ink2)}
+
+/* ── Skill lists ── */
+.fx-list li{transition:transform .35s cubic-bezier(.2,.8,.2,1),color .3s}
+.fx-list li > span:first-child{transition:color .3s}
+.fx-list li:hover{transform:translateX(8px);color:var(--ink)}
+.fx-list li:hover > span:first-child{color:var(--accent) !important}
+
+/* ── Contact cards ── */
+.contact-card{transition:border-color .4s,transform .5s cubic-bezier(.2,.8,.2,1)}
+.contact-card > span:first-child{transition:background .4s,color .4s,transform .6s cubic-bezier(.3,1.5,.5,1),border-color .4s}
+.contact-card:hover > span:first-child{background:var(--accent);color:var(--paper) !important;border-color:var(--accent) !important;transform:rotate(-8deg) scale(1.1)}
+
+/* ── FAB: soft pulse ring ── */
+.sakha-fab::before{content:"";position:absolute;inset:-1px;border:1px solid oklch(0.76 0.15 60);animation:fx-pulse 2.6s ease-out infinite;pointer-events:none}
+@keyframes fx-pulse{0%{opacity:.8;transform:scale(1)}100%{opacity:0;transform:scale(1.25,1.6)}}
+
+@media (prefers-reduced-motion:reduce){.fx-word > span{opacity:1;transform:none;filter:none}.fx-grain{display:none}}

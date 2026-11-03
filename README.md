@@ -27,6 +27,8 @@ npm run preview  # serve the production build
 index.html        markup for the whole site
 src/style.css     tokens, layout, responsive rules
 src/main.js       reveal-on-scroll, stat counters, terminal widget
+src/fx.js         custom cursor, agent-network hero canvas, magnetic/tilt/spotlight effects
+src/fx.css        motion layer styles (remove the import in main.js to fall back)
 public/assets/    profile image
 ```
 
